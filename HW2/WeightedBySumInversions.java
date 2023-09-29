@@ -1,84 +1,53 @@
 package HW2;
-
 import java.util.Scanner;
 
 public class WeightedBySumInversions {
     
     // This method returns the weighted count of inversions
-    public int countWeightedInversions(int[] sequence) {
-        int[] temp = new int[sequence.length];
-        return mergeSortAndCount(sequence, temp, 0, sequence.length - 1);
-    }
+    public int countInversions(int[] sequence) {
 
-    // This method recursively sorts the array and returns the weighted count of
-    // inversions
-    private int mergeSortAndCount(int[] sequence, int[] temp, int left, int right) {
-        int inversions = 0; // Initialize inversions within this recursive call
-
-        // print inversions and sequence
-        System.out.println("Inversions: " + inversions);
-        System.out.print("Sequence: ");
-        for (int i = 0; i < sequence.length; i++) {
-            System.out.print(sequence[i] + " ");
-        }
-        System.out.println();
-
-        // If there's more than one element in the subarray
-        if (left < right) {
-            int mid = (left + right) / 2;
-
-            // Recursively sort and count inversions in the left subarray
-            inversions += mergeSortAndCount(sequence, temp, left, mid);
-
-            // Recursively sort and count inversions in the right subarray
-            inversions += mergeSortAndCount(sequence, temp, mid + 1, right);
-
-            // Merge the two sorted subarrays and count inversions
-            inversions += mergeAndCount(sequence, temp, left, mid, right);
+        // If the sequence length is 1, then return 0
+        if (sequence.length == 1) {
+            return 0;
         }
 
-        // Return the total number of inversions for this recursive call
-        return inversions;
+        // Split the sequence into two halves (B and C)
+        int[] leftSequence = new int[sequence.length / 2];
+        int[] rightSequence = new int[(sequence.length - leftSequence.length)];
+        System.arraycopy(sequence, 0, leftSequence, 0, leftSequence.length);
+        System.arraycopy(sequence, sequence.length / 2, rightSequence, 0, rightSequence.length);
+
+        int leftCount = countInversions(leftSequence);
+        int rightCount = countInversions(rightSequence);
+
+        int midCount = countSplitInversions(leftSequence, rightSequence);
+
+        System.out.println("Left Sequence: " + java.util.Arrays.toString(leftSequence));
+        System.out.println("Left Count: " + leftCount);
+
+        System.out.println("Right Sequence: " + java.util.Arrays.toString(rightSequence));
+        System.out.println("Right Count: " + rightCount);
+        System.out.println("Mid Count: " + midCount);
+
+        return leftCount + rightCount + midCount;
     }
 
-    // This method merges two sorted arrays and returns the weighted count of
-    // inversions
-    private int mergeAndCount(int[] sequence, int[] temp, int left, int mid, int right) {
-        int leftIndex = left;
-        int rightIndex = mid + 1;
-        int mergeIndex = left; // Index for the temporary array
-        int inversions = 0; // Counter for inversions
+    // This method returns the count of split inversions
+    public int countSplitInversions(int[] B, int[] C) {
+        int mCount = 0;
+        int i = 0;
+        int j = 0;
 
-        // Merge the two sorted subarrays
-        while (leftIndex <= mid && rightIndex <= right) {
-            if (sequence[leftIndex] <= sequence[rightIndex]) {
-                temp[mergeIndex++] = sequence[leftIndex++];
+        while (i < B.length && j < C.length) {
+            if (B[i] <= C[j]) {
+                //do nothing
             } else {
-                temp[mergeIndex++] = sequence[rightIndex++];
-
-                // Count inversions: If an element in the left subarray is greater
-                // than an element in the right subarray, it's an inversion.
-                inversions += mid - leftIndex + 1;
+                mCount += B[i] + C[j];
+                i++;
             }
+            j++;
         }
-
-        // Copy remaining elements from the left subarray, if any
-        while (leftIndex <= mid) {
-            temp[mergeIndex++] = sequence[leftIndex++];
-        }
-
-        // Copy remaining elements from the right subarray, if any
-        while (rightIndex <= right) {
-            temp[mergeIndex++] = sequence[rightIndex++];
-        }
-
-        // Copy the merged results back to the original array
-        for (int i = left; i <= right; i++) {
-            sequence[i] = temp[i];
-        }
-
-        // Return the total number of inversions in this merge step
-        return inversions;
+        return mCount;
     }
 
     public static void main(String[] args) {
@@ -99,10 +68,10 @@ public class WeightedBySumInversions {
 
         // Calculate the weighted count of inversions
         WeightedBySumInversions weightedBySumInversions = new WeightedBySumInversions();
-        int weightedCount = weightedBySumInversions.countWeightedInversions(sequence);
+        int weightedCount = weightedBySumInversions.countInversions(sequence);
 
         // Print the result
-        System.out.println(weightedCount);
+        System.out.println("Weighted Count of Inversions: " + weightedCount);
 
         scanner.close();
     }
