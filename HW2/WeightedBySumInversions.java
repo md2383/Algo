@@ -4,62 +4,74 @@ import java.util.Scanner;
 public class WeightedBySumInversions {
     
     // This method returns the weighted count of inversions
-    public int countInversions(int[] sequence) {
+    public long countInversions(long[] sequence, int left, int right) {
 
-        // If the sequence length is 1, then return 0
-        if (sequence.length == 1) {
-            return 0;
+        long sum = 0;
+        if (left < right) {
+            int mid = (left + right) / 2;
+            sum += countInversions(sequence, left, mid);
+            sum += countInversions(sequence, mid + 1, right);
+            sum += merge(sequence, left, mid, right);
         }
-
-        // Split the sequence into two halves (B and C)
-        int[] leftSequence = new int[sequence.length / 2];
-        int[] rightSequence = new int[(sequence.length - leftSequence.length)];
-        System.arraycopy(sequence, 0, leftSequence, 0, leftSequence.length);
-        System.arraycopy(sequence, sequence.length / 2, rightSequence, 0, rightSequence.length);
-
-        int leftCount = countInversions(leftSequence);
-        int rightCount = countInversions(rightSequence);
-
-        int midCount = countSplitInversions(leftSequence, rightSequence);
-
-        System.out.println("Left Sequence: " + java.util.Arrays.toString(leftSequence));
-        System.out.println("Left Count: " + leftCount);
-
-        System.out.println("Right Sequence: " + java.util.Arrays.toString(rightSequence));
-        System.out.println("Right Count: " + rightCount);
-        System.out.println("Mid Count: " + midCount);
-
-        return leftCount + rightCount + midCount;
+        return sum;
     }
 
-    // This method returns the count of split inversions
-    public int countSplitInversions(int[] B, int[] C) {
-        int mCount = 0;
+    // This method merges two sorted arrays and returns the weighted count of inversions
+    private long merge(long[] sequence, int left, int mid, int right) {
+
+        // Create left and right arrays
+        long[] L = new long[mid - left + 1];
+        long[] R = new long[right - mid];
+
+        // Populate left and right arrays w values from sequence
+        for (int i = 0; i < L.length; i++) {
+            L[i] = sequence[left + i];
+        }
+        for (int i = 0; i < R.length; i++) {
+            R[i] = sequence[mid + 1 + i];
+        }
+
+        // Create variables to track indices of left and right arrays
         int i = 0;
         int j = 0;
+        int k = left;
 
-        while (i < B.length && j < C.length) {
-            if (B[i] <= C[j]) {
-                //do nothing
+        // Create variables to track number of inversions, sum and totalsum
+        long count = 0;
+        long sum = 0;
+        long totalSum = 0;
+
+        // check if the left and right array
+        while (j < R.length && i < L.length) {
+            if (L[i] <= R[j]) {
+                sequence[k++] = L[i++];
+                sum += count * L[i - 1] + totalSum;
             } else {
-                mCount += B[i] + C[j];
-                i++;
+                sequence[k++] = R[j++];
+                count++;
+                totalSum += R[j - 1];
             }
-            j++;
         }
-        return mCount;
+
+        // Copy the remaining elements of L[], if there are any
+        while (i < L.length) {
+            sequence[k++] = L[i++];
+            sum += count * L[i - 1] + totalSum;
+        }
+        while (j < R.length) {
+            sequence[k++] = R[j++];
+        }
+        return sum;
     }
 
     public static void main(String[] args) {
-        System.out.println(
-                "Enter the number of integers in the sequence, followed by the sequence of integers with spaces in between.");
         Scanner scanner = new Scanner(System.in);
 
         // Read the number of integers in the sequence
         int size = scanner.nextInt();
 
         // Create an array to hold the sequence
-        int[] sequence = new int[size];
+        long[] sequence = new long[size];
 
         // Read the sequence of integers
         for (int i = 0; i < size; i++) {
@@ -68,10 +80,10 @@ public class WeightedBySumInversions {
 
         // Calculate the weighted count of inversions
         WeightedBySumInversions weightedBySumInversions = new WeightedBySumInversions();
-        int weightedCount = weightedBySumInversions.countInversions(sequence);
+        long weightedCount = weightedBySumInversions.countInversions(sequence, 0, sequence.length - 1);
 
         // Print the result
-        System.out.println("Weighted Count of Inversions: " + weightedCount);
+        System.out.println(weightedCount);
 
         scanner.close();
     }
