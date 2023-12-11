@@ -1,0 +1,126 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Daycare",
+            "request": "launch",
+            "mainClass": "HW6.Daycare",
+            "projectName": "Algo_b7f0c16"
+        },
+        {
+            "type": "java",
+            "name": "NegativeCycle",
+            "request": "launch",
+            "mainClass": "HW6.NegativeCycle",
+            "projectName": "Algo_b7f0c16"
+        },
+        {
+            "type": "java",
+            "name": "SpanTree",
+            "request": "launch",
+            "mainClass": "HW6.SpanTree",
+            "projectName": "Algo_b7f0c16"
+        },
+        {
+            "type": "java",
+            "name": "Prerequisites",
+            "request": "launch",
+            "mainClass": "HW5.Prerequisites",
+            "projectName": "Algo_b7f0c16"
+        },
+        {
+            "type": "java",
+            "name": "ConnectGraph",
+            "request": "launch",
+            "mainClass": "HW5.ConnectGraph",
+            "projectName": "Algo_b7f0c16"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "FindMaxPairsDouble",
+            "request": "launch",
+            "mainClass": "FindMaxPairsDouble",
+            "projectName": "Algo_b7f0c16"
+        },
+        {
+            "type": "java",
+            "name": "HorizontalCrossing",
+            "request": "launch",
+            "mainClass": "HW2.HorizontalCrossing",
+            "projectName": "Algo_b7f0c16"
+        },
+        {
+            "type": "java",
+            "name": "WeightedBySumInversions",
+            "request": "launch",
+            "mainClass": "HW2.WeightedBySumInversions",
+            "projectName": "Algo_b7f0c16"
+        },
+        {
+            "type": "java",
+            "name": "Donut",
+            "request": "launch",
+            "mainClass": "HW3.Donut",
+            "projectName": "Algo_b7f0c16"
+        },
+        {
+            "type": "java",
+            "name": "Hopscotch",
+            "request": "launch",
+            "mainClass": "HW3.Hopscotch",
+            "projectName": "Algo_b7f0c16"
+        },
+        {
+            "type": "java",
+            "name": "LongestIncreasingSubseqDP",
+            "request": "launch",
+            "mainClass": "HW3.LongestIncreasingSubseqDP",
+            "projectName": "Algo_b7f0c16"
+        },
+        {
+            "type": "java",
+            "name": "LongestIncreasingSubseqRecursive",
+            "request": "launch",
+            "mainClass": "HW3.LongestIncreasingSubseqRecursive",
+            "projectName": "Algo_b7f0c16"
+        },
+        {
+            "type": "java",
+            "name": "DoubleTrouble",
+            "request": "launch",
+            "mainClass": "HW5.DoubleTrouble",
+            "projectName": "Algo_b7f0c16"
+        },
+        {
+            "type": "java",
+            "name": "Planters",
+            "request": "launch",
+            "mainClass": "Planters",
+            "projectName": "Algo_b7f0c16"
+        },
+        {
+            "type": "java",
+            "name": "Primes",
+            "request": "launch",
+            "mainClass": "Primes",
+            "projectName": "Algo_b7f0c16"
+        },
+        {
+            "type": "java",
+            "name": "SmallestTwo",
+            "request": "launch",
+            "mainClass": "SmallestTwo",
+            "projectName": "Algo_b7f0c16"
+        }
+    ]
+}

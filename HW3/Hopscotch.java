@@ -6,8 +6,6 @@ public class Hopscotch {
 
         int n = squares.length;
 
-        squares[n - 1] = squares[n - 1];
-        squares[n - 2] = squares[n - 2];
         squares[n - 3] = squares[n - 3] + squares[n - 1];
 
         for (int i = n - 4; i >= 0; i--) {
